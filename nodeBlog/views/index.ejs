@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- html içerdiği için = değil - ile eklenir. -->
+    <%-include('../inc/head.ejs')%>
+  </head>
+  <body>
+    <!-- <h1>Anasayfa</h1> -->
+    <%-include('../inc/nav.ejs')%>
+    <section>
+      <h1>Yazılar</h1>
+      <ul>
+        <%blogs.forEach(blog=>{%>
+          <li>
+            <a href="/blog/<%=blog._id%>"><%=blog.title%></a>
+            <p>
+              <%=blog.short%>
+            </p>
+          </li>
+          <%})%>
+        
+      </ul>
+    </section>
+  </body>
+</html>
