@@ -15,6 +15,8 @@ const adminRoutes = require('./routes/adminRoutes')
 
 //blogRoutes
 const blogRoutes = require('./routes/blogRoutes')
+//authRoutes
+const authRoutes = require('./routes/authRoutes')
 
 //express apimizi başlatıyoruz.
 const app = express()
@@ -229,6 +231,10 @@ app.get('/blog/:id',(req,res)=>{
 //     console.log(req.path);
 //     next();
 // })
+
+//authRoutes
+app.use('/',authRoutes)
+
 /**Burada ayrıca bir parametre ile routeların ne ile başladıgını verebiliriz. */
 //adminRoutes
 //admin altından ilerleyeceğini burada belirttik.
@@ -246,9 +252,10 @@ app.get('/about-us',(req,res)=>{
     res.redirect('/about',{title:'About'})
 })
 
-app.get('/login',(req,res)=>{
-    res.render('login',{title:'Giriş'})
-})
+/**auth içerisine taşındı. */
+// app.get('/login',(req,res)=>{
+//     res.render('login',{title:'Giriş'})
+// })
 
 
 app.use((req,res)=>{
