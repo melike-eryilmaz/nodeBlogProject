@@ -229,12 +229,13 @@ app.get('/blog/:id',(req,res)=>{
 //     console.log(req.path);
 //     next();
 // })
-
+/**Burada ayrıca bir parametre ile routeların ne ile başladıgını verebiliriz. */
 //adminRoutes
-app.use(adminRoutes)
+//admin altından ilerleyeceğini burada belirttik.
+app.use('/admin',adminRoutes)
 
 //blogRoutes
-app.use(blogRoutes)
+app.use('/blog',blogRoutes)
 
 
 app.get('/about',(req,res)=>{

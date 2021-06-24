@@ -5,7 +5,7 @@ const router = express.Router()
 const adminController = require('../controllers/adminController')
 // const Blog = require('../models/blogs') admincontroller içerisine taşındı.
 
-router.get('/admin',adminController.admin_index
+router.get('/',adminController.admin_index
 /*admincontroller içerisine taşındı.
 ,(req,res)=>{
     Blog.find().sort({createdAt:-1})
@@ -20,13 +20,13 @@ router.get('/admin',adminController.admin_index
 )
 
 //yeni yazı ekleme post
-router.get('/admin/add',adminController.admin_add
+router.get('/add',adminController.admin_add
 // ,(req,res)=>{
 //     res.render('add',{title:'Yeni yazı'})
 // }
 )
 
-router.post('/admin/add',adminController.admin_add_post
+router.post('/add',adminController.admin_add_post
    /* //console.log(req.body);
     const blog = new Blog(req.body);
 
@@ -41,7 +41,7 @@ router.post('/admin/add',adminController.admin_add_post
 )
 
 //delete işlemi
-router.delete('/admin/delete/:id',adminController.admin_delete
+router.delete('/delete/:id',adminController.admin_delete
 /*,(req,res)=>{
     const id = req.params.id
     Blog.findByIdAndDelete(id)
