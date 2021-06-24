@@ -12,6 +12,10 @@ const Blog = require('./models/blogs')
 
 //adminRoutes
 const adminRoutes = require('./routes/adminRoutes')
+
+//blogRoutes
+const blogRoutes = require('./routes/blogRoutes')
+
 //express apimizi başlatıyoruz.
 const app = express()
 
@@ -144,14 +148,20 @@ app.get('/single',(req,res)=>{
 app.get('/',(req,res)=>{
     //app içerisinden değerleri gönderme title.
     //res.render('index',{title:'Anasayfa'})
-    Blog.find().sort({createdAt:-1})
-        .then((result)=>{
-            res.render('index',{title:'Anasayfa',blogs:result})
-        })
-        .catch((err)=>{
-            console.log(err);
-        })
+
+    /**routes eklemek için artik burada bloga yönlendiriyoruz/ */
+    res.redirect('/blog');
+    // Blog.find().sort({createdAt:-1})
+    //     .then((result)=>{
+    //         res.render('index',{title:'Anasayfa',blogs:result})
+    //     })
+    //     .catch((err)=>{
+    //         console.log(err);
+    //     })
 })
+
+
+
 /* adminRoutes altına taşındı.
 app.get('/admin',(req,res)=>{
     Blog.find().sort({createdAt:-1})
@@ -194,6 +204,8 @@ app.delete('/admin/delete/:id',(req,res)=>{
         })
 })
 */
+
+/*blogRoutes altına taşındı.
 //id üzerinden detay sayfasına yönlendirme
 //: değişken geleceğini belirtir.
 app.get('/blog/:id',(req,res)=>{
@@ -209,7 +221,7 @@ app.get('/blog/:id',(req,res)=>{
         })
 })
 
-
+*/
 //ara katman
 //ara katman cevap dönünceye kadar çalışır.
 //before morgan
@@ -220,6 +232,10 @@ app.get('/blog/:id',(req,res)=>{
 
 //adminRoutes
 app.use(adminRoutes)
+
+//blogRoutes
+app.use(blogRoutes)
+
 
 app.get('/about',(req,res)=>{
     res.render('about',{title:'About'})
