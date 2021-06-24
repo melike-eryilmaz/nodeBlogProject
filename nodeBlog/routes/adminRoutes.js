@@ -1,9 +1,13 @@
 const express = require('express')
 //işlemleri router üzerinden gerçekleştireceğiz.
 const router = express.Router()
-const Blog = require('../models/blogs')
+//adminController
+const adminController = require('../controllers/adminController')
+// const Blog = require('../models/blogs') admincontroller içerisine taşındı.
 
-router.get('/admin',(req,res)=>{
+router.get('/admin',adminController.admin_index
+/*admincontroller içerisine taşındı.
+,(req,res)=>{
     Blog.find().sort({createdAt:-1})
         .then((result)=>{
             res.render('admin',{title:'Admin',blogs:result})
@@ -11,15 +15,19 @@ router.get('/admin',(req,res)=>{
         .catch((err)=>{
             console.log(err);
         })
-})
+}
+*/
+)
 
 //yeni yazı ekleme post
-router.get('/admin/add',(req,res)=>{
-    res.render('add',{title:'Yeni yazı'})
-})
+router.get('/admin/add',adminController.admin_add
+// ,(req,res)=>{
+//     res.render('add',{title:'Yeni yazı'})
+// }
+)
 
-router.post('/admin/add',(req,res)=>{
-    //console.log(req.body);
+router.post('/admin/add',adminController.admin_add_post
+   /* //console.log(req.body);
     const blog = new Blog(req.body);
 
     blog.save()
@@ -29,10 +37,12 @@ router.post('/admin/add',(req,res)=>{
         .catch((err)=>{
             console.log(err);
         })
-})
+}*/
+)
 
 //delete işlemi
-router.delete('/admin/delete/:id',(req,res)=>{
+router.delete('/admin/delete/:id',adminController.admin_delete
+/*,(req,res)=>{
     const id = req.params.id
     Blog.findByIdAndDelete(id)
         .then((result)=>{
@@ -41,7 +51,8 @@ router.delete('/admin/delete/:id',(req,res)=>{
         .catch((err)=>{
             console.log(err);
         })
-})
+}*/
+)
 
 
 module.exports = router
