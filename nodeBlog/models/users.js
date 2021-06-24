@@ -12,6 +12,23 @@ const userSchema = new mongoose.Schema({
         required:true
     }
 })
+//Kullanıcı adı parola kontrolü 
+userSchema.statics.login = async function(username,password){
+    const user = await this.findOne({username})
+    if(user){
+        const auth = await bcrypt.compare(password,user.password)
+        if(auth){
+            return user
+        }
+        else{
+            throw Error('parola hatalı')
+        }
+    }else{
+        throw Error('kullanici yok')
+    }
+}
+
+
 //Database e kaydedilmeden hemen önce password alanını şifreliyoruz.
 userSchema.pre('save',async function(next){
     const salt = await bcrypt.genSalt()
