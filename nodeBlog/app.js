@@ -23,7 +23,7 @@ const app = express()
 
 //db bağlantısı
 const dbUrl= 'mongodb+srv://melike:asd123@nodeblog.bzxt0.mongodb.net/node-blog?retryWrites=true&w=majority'
-mongoose.connect(dbUrl,{ useNewUrlParser: true, useUnifiedTopology:true })
+mongoose.connect(dbUrl,{ useNewUrlParser: true, useUnifiedTopology:true ,useCreateIndex:true})
 .then((result)=>{
     console.log('bagalntı basarılı');
     app.listen(3000);
