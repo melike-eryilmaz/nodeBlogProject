@@ -10,7 +10,8 @@ const mongoose = require('mongoose')
 //Model imizi projemize dahil ediyoruz.
 const Blog = require('./models/blogs')
 
-
+//adminRoutes
+const adminRoutes = require('./routes/adminRoutes')
 //express apimizi başlatıyoruz.
 const app = express()
 
@@ -151,7 +152,7 @@ app.get('/',(req,res)=>{
             console.log(err);
         })
 })
-
+/* adminRoutes altına taşındı.
 app.get('/admin',(req,res)=>{
     Blog.find().sort({createdAt:-1})
         .then((result)=>{
@@ -179,6 +180,20 @@ app.post('/admin/add',(req,res)=>{
             console.log(err);
         })
 })
+
+
+//delete işlemi
+app.delete('/admin/delete/:id',(req,res)=>{
+    const id = req.params.id
+    Blog.findByIdAndDelete(id)
+        .then((result)=>{
+            res.json({link:'/admin'})
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+})
+*/
 //id üzerinden detay sayfasına yönlendirme
 //: değişken geleceğini belirtir.
 app.get('/blog/:id',(req,res)=>{
@@ -194,17 +209,6 @@ app.get('/blog/:id',(req,res)=>{
         })
 })
 
-//delete işlemi
-app.delete('/admin/delete/:id',(req,res)=>{
-    const id = req.params.id
-    Blog.findByIdAndDelete(id)
-        .then((result)=>{
-            res.json({link:'/admin'})
-        })
-        .catch((err)=>{
-            console.log(err);
-        })
-})
 
 //ara katman
 //ara katman cevap dönünceye kadar çalışır.
@@ -213,6 +217,10 @@ app.delete('/admin/delete/:id',(req,res)=>{
 //     console.log(req.path);
 //     next();
 // })
+
+//adminRoutes
+app.use(adminRoutes)
+
 app.get('/about',(req,res)=>{
     res.render('about',{title:'About'})
 })
