@@ -7,6 +7,8 @@ const morgan = require('morgan')
 //mongodb bağlantısı için gerekli kütüphane mongoose
 const mongoose = require('mongoose')
 
+//cookie-parser
+const cookieParser = require('cookie-parser')
 //Model imizi projemize dahil ediyoruz.
 const Blog = require('./models/blogs')
 
@@ -17,6 +19,9 @@ const adminRoutes = require('./routes/adminRoutes')
 const blogRoutes = require('./routes/blogRoutes')
 //authRoutes
 const authRoutes = require('./routes/authRoutes')
+
+//authMiddleware
+const {requireAuth,checkUser} = require('./middlewares/authMiddleware')
 
 //express apimizi başlatıyoruz.
 const app = express()
@@ -102,6 +107,8 @@ app.use(express.urlencoded({extended:true}))//entended : true iç içe objeler o
 app.use(morgan('tiny'))//loglama
 app.use(morgan('dev'))//loglama
 
+//cookie parseer
+app.use(cookieParser())//kurucufunc çağrıldı.
 //Mongodb veri kaydetme && Görüntüleme
 app.get('/add',(req,res)=>{
     const blog= new Blog({
@@ -235,10 +242,15 @@ app.get('/blog/:id',(req,res)=>{
 //authRoutes
 app.use('/',authRoutes)
 
+
 /**Burada ayrıca bir parametre ile routeların ne ile başladıgını verebiliriz. */
 //adminRoutes
 //admin altından ilerleyeceğini burada belirttik.
-app.use('/admin',adminRoutes)
+app.use('/admin',requireAuth,adminRoutes)
+
+//checkuser tüm sayfalarda çalışacak.(*)
+app.use('*',checkUser)
+console.log("xxx",checkUser)
 
 //blogRoutes
 app.use('/blog',blogRoutes)
